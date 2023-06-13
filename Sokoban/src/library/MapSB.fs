@@ -17,7 +17,7 @@ type Block =
     | Outside of int*int
 
 
-module Map =
+module SBMap =
     let wallSymbol = '|'
     let floorSymbol = ' '
     let boxSymbol = '['
