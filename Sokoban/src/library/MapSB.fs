@@ -21,10 +21,10 @@ module SBMap =
     let wallSymbol = '|'
     let floorSymbol = ' '
     let boxSymbol = '['
-    let boxOnGoalSymbol = '+'
+    let boxOnGoalSymbol = '('
     let goalSymbol = '.'
     let playerSymbol = '>'
-    let playerOnGoalSymbol = '<'
+    let playerOnGoalSymbol = '^'
     let outsideSymbol = '-'
 
     // castChar convierte un char a un Block
@@ -40,16 +40,53 @@ module SBMap =
         | a when a = outsideSymbol -> Outside coord
         | _ -> raise (InvalidChar ("Error al leer casillero. El simbolo '" + string c + "' no significa nada. Los posibles simbolos son {#, x, c, >, <, +, ' ', -}."))
 
+    // castBlock convierte un Block a un char
+    let castBlock (b : Block) : char = 
+        match b with
+        | Wall _ -> wallSymbol
+        | Goal _ -> goalSymbol
+        | Box _ -> boxSymbol
+        | Player _ -> playerSymbol
+        | PlayerOnGoal _ -> playerOnGoalSymbol
+        | BoxOnGoal _ -> boxOnGoalSymbol
+        | Floor _ -> floorSymbol
+        | Outside _ -> outsideSymbol
+
+
     // fillString rellena un string con n bloques Outside al final
-    let fillString (s : string) (n) : string =        
+    let fillString (s : string) (n : int) : string =        
         let rec fillStringAux (s : string) (num : int) =
             match num with
-            | 0 -> s
+            | a when a <= 0 -> s
             | _ -> fillStringAux (s + string outsideSymbol) (num - 1)
         fillStringAux s n
 
+    // fillOutside rellena el borde del mapa con bloques Outside
+    let replaceOutside (s : string) (n : int): string =        
+        let filled = fillString s (n - s.Length) 
+        let filledCharArray = filled.ToCharArray() |> Seq.toList
+
+        let rec fillOutsideAux (charList : char list) =
+            match charList with
+            | [] -> []
+            | _ ->     
+                let h = charList.Head
+                let t = charList.Tail
+                match h with
+                | a when a = wallSymbol -> charList
+                | _ -> outsideSymbol::fillOutsideAux t
+
+        let beginOutside = fillOutsideAux filledCharArray
+        let endOutside = fillOutsideAux (beginOutside |> List.rev)
+
+        endOutside |> List.rev |> List.toArray |> System.String
+
+
+
+
     // getBlockList genera una lista con las coordenadas de cada simbolo en el mapa casteadas a Block
     let getBlockList (maxStringLength : int) (listOfStringsLength : int) (listOfStrings : string seq) : Block list =
+        let firstAndLastLine = replaceOutside "" maxStringLength
 
         let rec loop2 (s : string) (i : int) (j : int) = 
             match j with
@@ -58,11 +95,15 @@ module SBMap =
 
         let rec loop1 (list : string list) (i : int) =
             match i with
-            | a when a = listOfStringsLength -> []  
+            | a when a = listOfStringsLength + 2 -> []   // el 2 es porque añadi una fila al inicio y otra al final de la lista
             | _ ->  let listOfBlocks = loop2 (list.[i]) i 0 
                     List.append listOfBlocks (loop1 list (i + 1)) 
 
-        loop1 (listOfStrings |> Seq.toList) 0
+        let listWithFirst = firstAndLastLine::(listOfStrings |> Seq.toList)
+        let listWithFirstAndLast = List.append listWithFirst [firstAndLastLine]
+        
+        loop1 listWithFirstAndLast 0
+
 
     // readFromFile crea una lista de Block a partir de un archivo de texto
     let readFromFile (inputFile : string) : Block list =
@@ -71,5 +112,5 @@ module SBMap =
         let numberOfLines = lines.Length
 
         lines
-        |> Seq.map (fun x -> if x.Length < maxLineLength then (fillString x (maxLineLength - x.Length)) else x)
+        |> Seq.map (fun x -> replaceOutside x maxLineLength)
         |> getBlockList maxLineLength numberOfLines
