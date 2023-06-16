@@ -27,6 +27,15 @@ module SBMap =
     let playerOnGoalSymbol = '^'
     let outsideSymbol = '-'
 
+    let possibleSymbolsString =  string wallSymbol +
+                                        " \t '" + string floorSymbol +
+                                        "' \t " + string boxSymbol +
+                                        " \t " + string boxOnGoalSymbol +
+                                        " \t " + string goalSymbol +
+                                        " \t " + string playerSymbol +
+                                        " \t " + string boxOnGoalSymbol +
+                                        " \t " + string outsideSymbol
+
     // castChar convierte un char a un Block
     let castChar (c : char) (coord : int*int) : Block = 
         match c with
@@ -38,7 +47,7 @@ module SBMap =
         | a when a = boxOnGoalSymbol -> BoxOnGoal coord
         | a when a = floorSymbol -> Floor coord
         | a when a = outsideSymbol -> Outside coord
-        | _ -> raise (InvalidChar ("Error al leer casillero. El simbolo '" + string c + "' no significa nada. Los posibles simbolos son {#, x, c, >, <, +, ' ', -}."))
+        | _ -> raise (InvalidChar ("Error al leer casillero. El simbolo '" + string c + "' no significa nada. Los posibles simbolos son " + possibleSymbolsString))
 
     // castBlock convierte un Block a un char
     let castBlock (b : Block) : char = 
