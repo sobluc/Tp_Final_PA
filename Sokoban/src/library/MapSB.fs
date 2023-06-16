@@ -1,6 +1,9 @@
 namespace SokobanMapGenerator
 
 exception InvalidChar of string
+exception NumberOfPlayers of string
+exception IsOpen of string
+exception DifferentBoxAndGoals of string
 
 
 open System.IO
@@ -15,6 +18,7 @@ type Block =
     | Player of int*int
     | PlayerOnGoal of int*int
     | Outside of int*int
+
 
 
 module SBMap =
@@ -61,6 +65,18 @@ module SBMap =
         | Floor _ -> floorSymbol
         | Outside _ -> outsideSymbol
 
+    // castToTuple obtiene las coordenas de un Block
+    let castToTuple (b : Block) : int*int = 
+        match b with
+        | Wall (x,y) -> (x,y)
+        | Goal (x,y) -> (x,y)
+        | Box (x,y) -> (x,y)
+        | Player (x,y) -> (x,y)
+        | PlayerOnGoal (x,y) -> (x,y)
+        | BoxOnGoal (x,y) -> (x,y)
+        | Floor (x,y) -> (x,y)
+        | Outside (x,y) -> (x,y)
+
 
     // fillString rellena un string con n bloques Outside al final
     let fillString (s : string) (n : int) : string =        
@@ -92,7 +108,6 @@ module SBMap =
 
 
 
-
     // getBlockList genera una lista con las coordenadas de cada simbolo en el mapa casteadas a Block
     let getBlockList (maxStringLength : int) (listOfStringsLength : int) (listOfStrings : string seq) : Block list =
         let firstAndLastLine = replaceOutside "" maxStringLength
@@ -113,6 +128,44 @@ module SBMap =
         
         loop1 listWithFirstAndLast 0
 
+    // notOnePlayer devuelve false si hay un solo jugador en el mapa, true en caso contrario
+    let notOnePlayer (map : Block list) : bool =
+        (map |> List.filter (fun x -> match x with | Player _ -> true | _ -> false) |> List.length ) <> 1
+
+    // hasDifferentBoxAndGoals devuelve true si hay una cantidad distinta de cajas y objetivos, false en caso contrario
+    let hasDifferentBoxAndGoals (map : Block list) : bool =
+        let boxes = map |> List.filter (fun x -> match x with | Box _ -> true | _ -> false) |> List.length
+        let goals = map |> List.filter (fun x -> match x with | Goal _ -> true | _ -> false) |> List.length
+        boxes <> goals
+
+    // isOpen devuelve true si el mapa esta abierto, false en caso contrario (REVISAR!!)
+    let rec isOpen (i : int) (map : Block list) : bool =
+        match i with
+        | a when a = map.Length -> false
+        | _ ->  let h = map.[i]
+                match h with
+                | Wall _ -> isOpen (i+1) map  
+                | Outside _ -> isOpen (i+1) map 
+                | _ ->  let position = castToTuple (List.head map)
+                        let x = position |> fst
+                        let y = position |> snd
+
+                        let up = (x - 1, y)
+                        let down = (x + 1, y)
+                        let left = (x, y - 1)
+                        let right = (x, y + 1)
+
+                        let auxUp = map |> List.filter (fun x -> x = Outside up)
+                        let auxDown = map |> List.filter (fun x -> x = Outside down)
+                        let auxLeft = map |> List.filter (fun x -> x = Outside left)
+                        let auxRight = map |> List.filter (fun x -> x = Outside right)
+
+                        if (auxDown.Length <> 0) || (auxUp.Length <> 0) || (auxLeft.Length <> 0) || (auxRight.Length <> 0) then 
+                            true
+                        else 
+                            isOpen (i+1) map 
+
+
 
     // readFromFile crea una lista de Block a partir de un archivo de texto
     let readFromFile (inputFile : string) : Block list =
@@ -120,6 +173,19 @@ module SBMap =
         let maxLineLength = lines |> Seq.map (fun x -> x.Length) |> Seq.max
         let numberOfLines = lines.Length
 
-        lines
-        |> Seq.map (fun x -> replaceOutside x maxLineLength)
-        |> getBlockList maxLineLength numberOfLines
+        let map = lines
+                                |> Seq.map (fun x -> replaceOutside x maxLineLength)
+                                |> getBlockList maxLineLength numberOfLines
+
+
+        // Descomentar el siguiente bloque cuando este bien testeada la funcion isOpen
+
+        // if map |> isOpen 0 then 
+        //     raise (IsOpen "Error al leer mapa. El mapa tiene que estar cerrado.")
+        // else if map |> notOnePlayer then 
+        //     raise (NumberOfPlayers "Error al leer mapa. El mapa tiene que tener un solo jugador.")
+        // else if map |> hasDifferentBoxAndGoals then 
+        //     raise (DifferentBoxAndGoals "Error al leer mapa. La cantidad de cajas y objetivos es distinta.")
+        // else map
+
+        map
