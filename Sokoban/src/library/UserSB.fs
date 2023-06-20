@@ -51,6 +51,7 @@ module user =
                                     | _ when x = oneBlockAway -> match oneBlockAway with // The block one block away now has the player
                                                                     | Goal (c, d) -> PlayerOnGoal (c, d)
                                                                     | BoxOnGoal (c,d) -> PlayerOnGoal (c, d)
+                                                                    | Outside (c,d) -> raise (IsOpen ("Error al mover el jugador. El jugador se ha salido del mapa."))
                                                                     | _ -> Player (SBMap.castToTuple oneBlockAway)
                                     | _ when x = twoBlocksAway -> match twoBlocksAway with // The block one block away now is the block two blocks away (because it is mmoved)
                                                                     | Goal (c,d) -> match oneBlockAway with
