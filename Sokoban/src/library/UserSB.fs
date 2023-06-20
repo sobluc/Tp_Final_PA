@@ -34,7 +34,7 @@ module user =
 
     // move moves the player and the corresponding blocks, so it
     // returns a new map with the player and the blocks moved
-    let move (oldmap:Block list) (key:char) :Block list =
+    let move (oldmap:Block list) (key:char) (moves:int) :Block list*int =
         let player = oldmap
                             |>List.find(fun x -> match x with
                                                     | Player _ -> true
@@ -44,8 +44,7 @@ module user =
         let oneBlockAway = nextBlock oldmap key playerCoord
         let twoBlocksAway = nextBlock oldmap key (SBMap.castToTuple oneBlockAway)
         if isMovable oneBlockAway twoBlocksAway then
-            oldmap
-            |> List.map (fun x -> match x with
+            (List.map (fun x -> match x with
                                     | Player (c, d) -> Floor (c, d) // Player is moved to the next block, and the previous block is turned into a floor
                                     | PlayerOnGoal (c, d) -> Goal (c, d) // Player is moved to the next block, and the previous block is turned into a goal
                                     | _ when x = oneBlockAway -> match oneBlockAway with // The block one block away now has the player
@@ -63,6 +62,7 @@ module user =
                                                                                 | BoxOnGoal (c,d) -> Box (SBMap.castToTuple twoBlocksAway)
                                                                                 | _ -> twoBlocksAway
                                     | _ -> x) // The rest of the blocks are left as they were
+                                    oldmap, moves+1) // The number of moves is increased
         else
-            oldmap // If the block can't be moved, the map is left as it was
+            (oldmap, moves) // If the block can't be moved, the map is left as it was, and the moves stay the same
 
