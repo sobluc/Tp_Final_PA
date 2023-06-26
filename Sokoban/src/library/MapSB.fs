@@ -107,7 +107,6 @@ module SBMap =
         endOutside |> List.rev |> List.toArray |> System.String
 
 
-
     // getBlockList generates a list with the coordinates of each symbol in the map casted to Block
     let getBlockList (maxStringLength : int) (listOfStringsLength : int) (listOfStrings : string seq) : Block list =
         let firstAndLastLine = replaceOutside "" maxStringLength

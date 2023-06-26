@@ -1,6 +1,8 @@
 ﻿// Sokoban main program
 
 open System
+open SokobanMapGenerator
+
 
 [<EntryPoint>]
 printfn "Welcome to Sokoban!"
@@ -12,3 +14,6 @@ if userInput = "a" then
 else
     printfn $"Hello!"
 
+
+let map = SBMap.readFromFile "levels/lvl1(34).txt"
+printfn $"The map is: {map}"

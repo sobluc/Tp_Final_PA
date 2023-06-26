@@ -1,6 +1,8 @@
 namespace SokobanUserDynamics
 
 open SokobanMapGenerator
+open System
+
 
 module user =
     // isMovable decides if a block is movable given the next block
@@ -66,3 +68,18 @@ module user =
         else
             (oldmap, moves) // If the block can't be moved, the map is left as it was, and the moves stay the same
 
+
+module userPrompt =
+    let askUsername = 
+        printfn "Please enter your username: "
+        let answer = Console.ReadLine()
+        answer
+    let askTutorial =
+        printfn "Do you want to play the tutorial? (y/n)"
+        let answer = Console.ReadLine()
+        answer
+
+    let askLevel =
+        printfn "Please enter the level you want to play (1 - 10): "
+        let answer = Console.ReadLine()
+        answer
