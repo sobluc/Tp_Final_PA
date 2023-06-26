@@ -22,14 +22,14 @@ type Block =
 
 
 module SBMap =
-    let wallSymbol = '|'
-    let floorSymbol = ' '
-    let boxSymbol = '['
-    let boxOnGoalSymbol = '('
-    let goalSymbol = '.'
-    let playerSymbol = '>'
-    let playerOnGoalSymbol = '^'
-    let outsideSymbol = '-'
+    let wallSymbol = '|' // defines symbol for wall 
+    let floorSymbol = ' ' // defines symbol for floor
+    let boxSymbol = '[' // defines symbol for box
+    let boxOnGoalSymbol = '(' // defines symbol for when box is on top of goal
+    let goalSymbol = '.' // defines symbol for goal
+    let playerSymbol = '>' // defines symbol for player
+    let playerOnGoalSymbol = '^' // defines symbol for when player is on top of goal
+    let outsideSymbol = '-' // defines symbol for outside
 
     let possibleSymbolsString =  string wallSymbol +
                                         " \t '" + string floorSymbol +
@@ -40,7 +40,7 @@ module SBMap =
                                         " \t " + string boxOnGoalSymbol +
                                         " \t " + string outsideSymbol
 
-    // castChar convierte un char a un Block
+    // castChar casts a given char at specified coordinates into a Block
     let castChar (c : char) (coord : int*int) : Block = 
         match c with
         | a when a = wallSymbol -> Wall coord
@@ -53,7 +53,7 @@ module SBMap =
         | a when a = outsideSymbol -> Outside coord
         | _ -> raise (InvalidChar ("Error al leer casillero. El simbolo '" + string c + "' no significa nada. Los posibles simbolos son " + possibleSymbolsString))
 
-    // castBlock convierte un Block a un char
+    // castBlock casts a Block into a char
     let castBlock (b : Block) : char = 
         match b with
         | Wall _ -> wallSymbol
@@ -65,7 +65,7 @@ module SBMap =
         | Floor _ -> floorSymbol
         | Outside _ -> outsideSymbol
 
-    // castToTuple obtiene las coordenas de un Block
+    // castToTuple returns the coordinates of a Block as a tuple
     let castToTuple (b : Block) : int*int = 
         match b with
         | Wall (x,y) -> (x,y)
@@ -78,7 +78,7 @@ module SBMap =
         | Outside (x,y) -> (x,y)
 
 
-    // fillString rellena un string con n bloques Outside al final
+    // fillString fills a string with n 'Outside' blocks at the end
     let fillString (s : string) (n : int) : string =        
         let rec fillStringAux (s : string) (num : int) =
             match num with
@@ -86,7 +86,7 @@ module SBMap =
             | _ -> fillStringAux (s + string outsideSymbol) (num - 1)
         fillStringAux s n
 
-    // fillOutside rellena el borde del mapa con bloques Outside
+    // replaceOutside fills the outside of the map with 'Outside' blocks
     let replaceOutside (s : string) (n : int): string =        
         let filled = fillString s (n - s.Length) 
         let filledCharArray = filled.ToCharArray() |> Seq.toList
@@ -108,7 +108,7 @@ module SBMap =
 
 
 
-    // getBlockList genera una lista con las coordenadas de cada simbolo en el mapa casteadas a Block
+    // getBlockList generates a list with the coordinates of each symbol in the map casted to Block
     let getBlockList (maxStringLength : int) (listOfStringsLength : int) (listOfStrings : string seq) : Block list =
         let firstAndLastLine = replaceOutside "" maxStringLength
 
@@ -128,17 +128,17 @@ module SBMap =
         
         loop1 listWithFirstAndLast 0
 
-    // notOnePlayer devuelve false si hay un solo jugador en el mapa, true en caso contrario
+    // notOnePlayer returns false if there is only one player in the map, true otherwise
     let notOnePlayer (map : Block list) : bool =
         (map |> List.filter (fun x -> match x with | Player _ -> true | _ -> false) |> List.length ) <> 1
 
-    // hasDifferentBoxAndGoals devuelve true si hay una cantidad distinta de cajas y objetivos, false en caso contrario
+    // hasDifferentBoxAndGoals returns true if there is a different number of boxes and goals, false otherwise
     let hasDifferentBoxAndGoals (map : Block list) : bool =
         let boxes = map |> List.filter (fun x -> match x with | Box _ -> true | _ -> false) |> List.length
         let goals = map |> List.filter (fun x -> match x with | Goal _ -> true | _ -> false) |> List.length
         boxes <> goals
 
-    // isOpen devuelve true si el mapa esta abierto, false en caso contrario (REVISAR!!)
+    // isOpen returns true if the map is open, false otherwise (REVISAR!!)
     let rec isOpen (i : int) (map : Block list) : bool =
         match i with
         | a when a = map.Length -> false
@@ -167,7 +167,7 @@ module SBMap =
 
 
 
-    // readFromFile crea una lista de Block a partir de un archivo de texto
+    // readFromFile reads a text file with the desired map and returns a list of Block
     let readFromFile (inputFile : string) : Block list =
         let lines = File.ReadAllLines(inputFile)        
         let maxLineLength = lines |> Seq.map (fun x -> x.Length) |> Seq.max
