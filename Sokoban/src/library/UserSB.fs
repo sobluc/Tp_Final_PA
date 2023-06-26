@@ -1,7 +1,7 @@
 namespace SokobanUserDynamics
 
 open SokobanMapGenerator
-open System
+open System // for Console.ReadLine function
 
 
 module user =
@@ -70,15 +70,18 @@ module user =
 
 
 module userPrompt =
+    // Asks the user for their username
     let askUsername = 
         printfn "Please enter your username: "
         let answer = Console.ReadLine()
         answer
+    // Asks the user if they want to play the tutorial
     let askTutorial =
         printfn "Do you want to play the tutorial? (y/n)"
         let answer = Console.ReadLine()
         answer
 
+    // Asks the user for the level they want to play
     let askLevel =
         printfn "Please enter the level you want to play (1 - 10): "
         let answer = Console.ReadLine()

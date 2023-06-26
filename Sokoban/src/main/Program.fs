@@ -2,7 +2,7 @@
 
 open System
 open SokobanMapGenerator
-
+open SokobanLevelReader
 
 [<EntryPoint>]
 printfn "Welcome to Sokoban!"
