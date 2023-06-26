@@ -24,9 +24,9 @@ type Block =
 module SBMap =
     let wallSymbol = '|' // defines symbol for wall 
     let floorSymbol = ' ' // defines symbol for floor
-    let boxSymbol = '[' // defines symbol for box
-    let boxOnGoalSymbol = '(' // defines symbol for when box is on top of goal
-    let goalSymbol = '.' // defines symbol for goal
+    let boxSymbol = '#' // defines symbol for box
+    let boxOnGoalSymbol = 'x' // defines symbol for when box is on top of goal
+    let goalSymbol = 'o' // defines symbol for goal
     let playerSymbol = '>' // defines symbol for player
     let playerOnGoalSymbol = '^' // defines symbol for when player is on top of goal
     let outsideSymbol = '-' // defines symbol for outside
@@ -138,34 +138,6 @@ module SBMap =
         let goals = map |> List.filter (fun x -> match x with | Goal _ -> true | _ -> false) |> List.length
         boxes <> goals
 
-    // isOpen returns true if the map is open, false otherwise (REVISAR!!)
-    let rec isOpen (i : int) (map : Block list) : bool =
-        match i with
-        | a when a = map.Length -> false
-        | _ ->  let h = map.[i]
-                match h with
-                | Wall _ -> isOpen (i+1) map  
-                | Outside _ -> isOpen (i+1) map 
-                | _ ->  let position = castToTuple (List.head map)
-                        let x = position |> fst
-                        let y = position |> snd
-
-                        let up = (x - 1, y)
-                        let down = (x + 1, y)
-                        let left = (x, y - 1)
-                        let right = (x, y + 1)
-
-                        let auxUp = map |> List.filter (fun x -> x = Outside up)
-                        let auxDown = map |> List.filter (fun x -> x = Outside down)
-                        let auxLeft = map |> List.filter (fun x -> x = Outside left)
-                        let auxRight = map |> List.filter (fun x -> x = Outside right)
-
-                        if (auxDown.Length <> 0) || (auxUp.Length <> 0) || (auxLeft.Length <> 0) || (auxRight.Length <> 0) then 
-                            true
-                        else 
-                            isOpen (i+1) map 
-
-
 
     // readFromFile reads a text file with the desired map and returns a list of Block
     let readFromFile (inputFile : string) : Block list =
@@ -174,18 +146,10 @@ module SBMap =
         let numberOfLines = lines.Length
 
         let map = lines
-                                |> Seq.map (fun x -> replaceOutside x maxLineLength)
                                 |> getBlockList maxLineLength numberOfLines
 
-
-        // Descomentar el siguiente bloque cuando este bien testeada la funcion isOpen
-
-        // if map |> isOpen 0 then 
-        //     raise (IsOpen "Error al leer mapa. El mapa tiene que estar cerrado.")
-        // else if map |> notOnePlayer then 
-        //     raise (NumberOfPlayers "Error al leer mapa. El mapa tiene que tener un solo jugador.")
-        // else if map |> hasDifferentBoxAndGoals then 
-        //     raise (DifferentBoxAndGoals "Error al leer mapa. La cantidad de cajas y objetivos es distinta.")
-        // else map
-
-        map
+        if map |> notOnePlayer then 
+            raise (NumberOfPlayers "Error al leer mapa. El mapa tiene que tener un solo jugador.")
+        else if map |> hasDifferentBoxAndGoals then 
+            raise (DifferentBoxAndGoals "Error al leer mapa. La cantidad de cajas y objetivos es distinta.")
+        else map
