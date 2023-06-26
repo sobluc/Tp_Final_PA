@@ -15,5 +15,6 @@ else
     printfn $"Hello!"
 
 
-let map = SBMap.readFromFile "levels/lvl1(34).txt"
-printfn $"The map is: {map}"
+let level = Lvl.getLvl "1"
+
+printfn $"The map is: {Lvl.readLvl level}"
