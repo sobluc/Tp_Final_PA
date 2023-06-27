@@ -16,6 +16,8 @@ type Level =
     | Ten of string
     
 module Lvl =
+    // getLvl translates the user's answer to a level type with the path to each level file
+    // The name of the level file has the minimum number of steps to complete the level between parentheses (...)
     let getLvl (userAnswer : string) : Level =
         match userAnswer with
         | "1" -> One "levels/lvl1(34).txt"
@@ -30,6 +32,7 @@ module Lvl =
         | "10" -> Ten "levels/lvl10(44).txt"
         | _ -> Tutorial "levels/Tutorial.txt"    
     
+    // readLvl reads the level file and returns a list of blocks
     let readLvl (lvl : Level) : Block list = 
         match lvl with
         | Tutorial path -> SBMap.readFromFile path
