@@ -102,7 +102,7 @@ let ReadLevelTest1 () =
     Assert.AreEqual (3,boxCount)
     Assert.AreEqual (3,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (182,map.Length)
+    Assert.AreEqual (156,map.Length)
 
 [<Test>]
 let ReadLevelTest2 () =
@@ -135,7 +135,7 @@ let ReadLevelTest2 () =
     Assert.AreEqual (4,boxCount)
     Assert.AreEqual (4,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (182,map.Length)
+    Assert.AreEqual (156,map.Length)
 
 [<Test>]
 let ReadLevelTest3 () =
@@ -168,7 +168,7 @@ let ReadLevelTest3 () =
     Assert.AreEqual (4,boxCount)
     Assert.AreEqual (4,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (144,map.Length)
+    Assert.AreEqual (121,map.Length)
 
 [<Test>]
 let ReadLevelTest4 () =
@@ -201,7 +201,7 @@ let ReadLevelTest4 () =
     Assert.AreEqual (7,boxCount)
     Assert.AreEqual (7,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (154,map.Length)
+    Assert.AreEqual (130,map.Length)
 
 [<Test>]
 let ReadLevelTest5 () =
@@ -234,7 +234,7 @@ let ReadLevelTest5 () =
     Assert.AreEqual (6,boxCount)
     Assert.AreEqual (6,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (156,map.Length)
+    Assert.AreEqual (132,map.Length)
 
 [<Test>]
 let ReadLevelTest6 () =
@@ -267,7 +267,7 @@ let ReadLevelTest6 () =
     Assert.AreEqual (3,boxCount)
     Assert.AreEqual (3,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (110,map.Length)
+    Assert.AreEqual (90,map.Length)
 
 [<Test>]
 let ReadLevelTest7 () =
@@ -300,7 +300,7 @@ let ReadLevelTest7 () =
     Assert.AreEqual (9,boxCount)
     Assert.AreEqual (9,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (182,map.Length)
+    Assert.AreEqual (156,map.Length)
     
 [<Test>]
 let ReadLevelTest8 () =
@@ -333,7 +333,7 @@ let ReadLevelTest8 () =
     Assert.AreEqual (4,boxCount)
     Assert.AreEqual (4,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (99,map.Length)
+    Assert.AreEqual (80,map.Length)
     
 [<Test>]
 let ReadLevelTest9 () =
@@ -366,7 +366,7 @@ let ReadLevelTest9 () =
     Assert.AreEqual (7,boxCount)
     Assert.AreEqual (7,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (130,map.Length)
+    Assert.AreEqual (108,map.Length)
 
     
 [<Test>]
@@ -400,7 +400,7 @@ let ReadLevelTest10 () =
     Assert.AreEqual (5,boxCount)
     Assert.AreEqual (5,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (100,map.Length)
+    Assert.AreEqual (81,map.Length)
 
 
 [<Test>]
@@ -434,4 +434,4 @@ let ReadLevelTest11 () =
     Assert.AreEqual (1,boxCount)
     Assert.AreEqual (1,goalCount)
     Assert.AreEqual (1,playerCount)
-    Assert.AreEqual (328,map.Length)
+    Assert.AreEqual (280,map.Length)
