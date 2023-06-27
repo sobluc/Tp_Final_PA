@@ -2,7 +2,7 @@ module mapSBTests
 
 open NUnit.Framework
 open SokobanMapGenerator
-open System.IO
+
 
 [<SetUp>]
 let Setup () =
