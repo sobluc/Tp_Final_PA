@@ -77,7 +77,6 @@ module SBMap =
         | Floor (x,y) -> (x,y)
         | Outside (x,y) -> (x,y)
 
-
     // fillString fills a string with n 'Outside' blocks at the end
     let fillString (s : string) (n : int) : string =        
         let rec fillStringAux (s : string) (num : int) =
@@ -86,30 +85,11 @@ module SBMap =
             | _ -> fillStringAux (s + string outsideSymbol) (num - 1)
         fillStringAux s n
 
-    // replaceOutside fills the outside of the map with 'Outside' blocks
-    let replaceOutside (s : string) (n : int): string =        
-        let filled = fillString s (n - s.Length) 
-        let filledCharArray = filled.ToCharArray() |> Seq.toList
-
-        let rec fillOutsideAux (charList : char list) =
-            match charList with
-            | [] -> []
-            | _ ->     
-                let h = charList.Head
-                let t = charList.Tail
-                match h with
-                | a when a = wallSymbol -> charList
-                | _ -> outsideSymbol::fillOutsideAux t
-
-        let beginOutside = fillOutsideAux filledCharArray
-        let endOutside = fillOutsideAux (beginOutside |> List.rev)
-
-        endOutside |> List.rev |> List.toArray |> System.String
-
 
     // getBlockList generates a list with the coordinates of each symbol in the map casted to Block
     let getBlockList (maxStringLength : int) (listOfStringsLength : int) (listOfStrings : string seq) : Block list =
-        let firstAndLastLine = replaceOutside "" maxStringLength
+        // make each string have de same length filling it with 'Outside' blocks at the end:
+        let seqAux = listOfStrings |> Seq.map (fun x -> fillString x (maxStringLength - x.Length))
 
         let rec loop2 (s : string) (i : int) (j : int) = 
             match j with
@@ -118,18 +98,16 @@ module SBMap =
 
         let rec loop1 (list : string list) (i : int) =
             match i with
-            | a when a = listOfStringsLength + 2 -> []   // el 2 es porque añadi una fila al inicio y otra al final de la lista
+            | a when a = listOfStringsLength -> []   
             | _ ->  let listOfBlocks = loop2 (list.[i]) i 0 
                     List.append listOfBlocks (loop1 list (i + 1)) 
 
-        let listWithFirst = firstAndLastLine::(listOfStrings |> Seq.toList)
-        let listWithFirstAndLast = List.append listWithFirst [firstAndLastLine]
-        
-        loop1 listWithFirstAndLast 0
+        loop1 (seqAux |> Seq.toList) 0
+
 
     // notOnePlayer returns false if there is only one player in the map, true otherwise
     let notOnePlayer (map : Block list) : bool =
-        (map |> List.filter (fun x -> match x with | Player _ -> true | _ -> false) |> List.length ) <> 1
+        (map |> List.filter (fun x -> match x with | Player _ -> true | PlayerOnGoal _ -> true | _ -> false) |> List.length ) <> 1
 
     // hasDifferentBoxAndGoals returns true if there is a different number of boxes and goals, false otherwise
     let hasDifferentBoxAndGoals (map : Block list) : bool =
