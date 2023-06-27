@@ -2,7 +2,7 @@ module lvlReaderTests
 
 open NUnit.Framework
 open SokobanLevelReader
-
+open SokobanMapGenerator
 [<SetUp>]
 let Setup () =
     ()
@@ -72,3 +72,15 @@ let GetLevelTest11 () =
     let userEntry = "Tuto"
     let lvl = Lvl.getLvl userEntry
     Assert.AreEqual (Tutorial "levels/Tutorial.txt",lvl)
+
+[<Test>]
+let ReadLevelTest1 () =
+    let lvlpath = "../../../../../src/main/levels/lvl1(34).txt"
+    let map = Lvl.readLvl (One lvlpath)
+    let boxCount = map 
+                |> List.filter (fun x -> match x with
+                                            | Box (c,d) -> true
+                                            | _ -> false)
+                                            |> List.length
+    Assert.AreEqual (3,boxCount)
+    Assert.AreEqual (182,map.Length)
