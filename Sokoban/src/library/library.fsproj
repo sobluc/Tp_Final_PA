@@ -7,5 +7,6 @@
     <Compile Include="MapSB.fs" />
     <Compile Include="UserSB.fs" />
     <Compile Include="LvlReaderSB.fs" />
+    <Compile Include="ConsoleSB.fs" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 open System
 open SokobanMapGenerator
 open SokobanLevelReader
-
+open SokobanConsoleOutput
 [<EntryPoint>]
 printfn "Welcome to Sokoban!"
 printfn "Please enter your username: "
@@ -18,3 +18,5 @@ else
 let level = Lvl.getLvl "1"
 
 printfn $"The map is: {Lvl.readLvl level}"
+GamePrint.PrintMap (Lvl.readLvl level)
+
