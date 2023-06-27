@@ -6,7 +6,7 @@ Realizado por [Lucas Díaz](https://github.com/LucasD1az), [Lucas Andrés Sobeha
 Para ejecutar el programa se debe correr el archivo Sokoban\src\main\Program.fs con el comando "dotnet run". 
 
 ### Objetivo del juego 
-El objetivo del juego es mover las cajas ("#") hacia los objetivos ("o"). Para mover las cajas se debe empujarlas con el personaje (">"). Cuando una caja está en un objetivo, esta cambia de apariencia ("x") y cuando un personaje esta sobre el objetivo cambia de apariencia ("^").
+El objetivo del juego es mover las cajas ("#") hacia los objetivos ("o"). Para mover las cajas se debe empujarlas con el personaje (">"). Cuando una caja está en un objetivo, esta cambia de apariencia ("x") y cuando un personaje esta sobre el objetivo cambia de apariencia ("^"). Un nivel termina cuando todas las cajas están sobre los objetivos.
 
 ### Comandos 
 - "w" para moverse hacia arriba
