@@ -1,5 +1,6 @@
 # Tp_Final_PA
-Trabajo práctico final de la materia Programación Avanzada
+Trabajo práctico final de la materia Programación Avanzada del Instituto Balseiro. 
+Realizado por [Lucas Díaz](https://github.com/LucasD1az), [Lucas Andrés Sobehart](https://github.com/sobluc) y [Marco Madile Hjelt](https://github.com/MarcoMadile).
 
 ## Modo de uso 
 Para ejecutar el programa se debe correr el archivo Sokoban\src\main\Program.fs con el comando "dotnet run". 
