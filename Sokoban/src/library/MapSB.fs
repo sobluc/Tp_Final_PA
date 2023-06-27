@@ -147,8 +147,7 @@ module SBMap =
         let map = lines
                                 |> getBlockList maxLineLength numberOfLines
 
-        if map |> notOnePlayer then 
-            raise (NumberOfPlayers "Error al leer mapa. El mapa tiene que tener un solo jugador.")
-        else if map |> hasDifferentBoxAndGoals then 
-            raise (DifferentBoxAndGoals "Error al leer mapa. La cantidad de cajas y objetivos es distinta.")
-        else map
+        match map with
+            | a when a |> notOnePlayer -> raise (NumberOfPlayers "Error al leer mapa. El mapa tiene que tener un solo jugador.")
+            | a when a |> hasDifferentBoxAndGoals -> raise (DifferentBoxAndGoals "Error al leer mapa. La cantidad de cajas y objetivos es distinta.")
+            | _ -> map

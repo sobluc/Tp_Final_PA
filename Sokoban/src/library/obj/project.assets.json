@@ -108,19 +108,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lucas\\.nuget\\packages\\": {}
+    "C:\\Users\\lucas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj",
+      "projectUniqueName": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj",
       "projectName": "library",
-      "projectPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj",
-      "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\library\\obj\\",
+      "projectPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj",
+      "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+      "outputPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
