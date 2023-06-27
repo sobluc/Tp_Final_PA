@@ -4,20 +4,20 @@ open System
 open SokobanMapGenerator
 open SokobanLevelReader
 open SokobanConsoleOutput
+
 [<EntryPoint>]
 printfn "Welcome to Sokoban!"
 printfn "Please enter your username: "
 let userInput = Console.ReadLine()
 
-if userInput = "a" then
-    printfn $"Hello {userInput}!"
-else
-    printfn $"Hello!"
+
+printfn $"Hello {userInput}!"
 
 
-let level = Lvl.getLvl "1"
+printfn "Please enter the level you want to play (1-10 or anything different for tutorial): "
+let userAnswer = Console.ReadLine()
+let level = Lvl.getLvl userAnswer
 
-printfn $"The map is: {Lvl.readLvl level}"
 let number_moves = 0
 GamePrint.PrintMap (Lvl.readLvl level ) number_moves 
 
