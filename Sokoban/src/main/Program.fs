@@ -18,5 +18,7 @@ else
 let level = Lvl.getLvl "1"
 
 printfn $"The map is: {Lvl.readLvl level}"
-GamePrint.PrintMap (Lvl.readLvl level)
+let number_moves = 0
+GamePrint.PrintMap (Lvl.readLvl level ) number_moves 
 
+gameLoop.loop (Lvl.readLvl level) number_moves
