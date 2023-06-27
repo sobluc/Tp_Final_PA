@@ -435,6 +435,19 @@
             "related": ".xml"
           }
         }
+      },
+      "library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "FSharp.Core": "7.0.200"
+        },
+        "compile": {
+          "bin/placeholder/library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/library.dll": {}
+        }
       }
     }
   },
@@ -1071,6 +1084,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "library/1.0.0": {
+      "type": "project",
+      "path": "../../src/library/library.fsproj",
+      "msbuildProject": "../../src/library/library.fsproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1080,23 +1098,24 @@
       "NUnit >= 3.13.3",
       "NUnit.Analyzers >= 3.6.1",
       "NUnit3TestAdapter >= 4.4.2",
-      "coverlet.collector >= 3.2.0"
+      "coverlet.collector >= 3.2.0",
+      "library >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lucas\\.nuget\\packages\\": {}
+    "C:\\Users\\lucas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\libraryTests.fsproj",
+      "projectUniqueName": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\libraryTests.fsproj",
       "projectName": "libraryTests",
-      "projectPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\libraryTests.fsproj",
-      "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\obj\\",
+      "projectPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\libraryTests.fsproj",
+      "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+      "outputPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\tests\\libraryTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -1108,7 +1127,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj": {
+              "projectPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj"
+            }
+          }
         }
       }
     },

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "q2C/53UVp1qbubvgqrPY1QtL8gDUQVe1v7qphpBRS+bL90PnZmb/LtiQpoqFRwK/kp/SdQoR5OEEBo4O3p0dDw==",
+  "dgSpecHash": "ukv5mMJBQKYBSdhWtYj1NF5Vs61tyRhDaH8vdwy0Zcrfn/oF2O4o/HIoQDQKBOZ3v5rpCz3cC9MADr1iJKRZxg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
+  "projectFilePath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Lucas\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
+    "C:\\Users\\lucas\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
   ],
   "logs": []
 }

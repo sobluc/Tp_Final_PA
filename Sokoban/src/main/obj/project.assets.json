@@ -127,19 +127,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lucas\\.nuget\\packages\\": {}
+    "C:\\Users\\lucas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
+      "projectUniqueName": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
       "projectName": "main",
-      "projectPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
-      "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\main\\obj\\",
+      "projectPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\main\\main.fsproj",
+      "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+      "outputPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\main\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -152,8 +152,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj": {
-              "projectPath": "C:\\Users\\Lucas\\Documents\\IB\\MAESTRIA_MATERIAS\\programacion avanzada\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj"
+            "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj": {
+              "projectPath": "X:\\Balseiro\\6_Electivas\\AdvProg\\Tp_Final_PA\\Sokoban\\src\\library\\library.fsproj"
             }
           }
         }
