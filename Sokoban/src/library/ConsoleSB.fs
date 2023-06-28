@@ -1,6 +1,5 @@
 namespace SokobanConsoleOutput
 
-open SokobanLevelReader
 open System
 open SokobanUserDynamics
 open SokobanMapGenerator
@@ -18,7 +17,7 @@ module GamePrint =
         let maxX = map |> List.maxBy (fun block -> fst (SBMap.castToTuple block)) |> SBMap.castToTuple |> fst
         let maxY = map |> List.maxBy (fun block -> snd (SBMap.castToTuple block)) |> SBMap.castToTuple |> snd
         //add quantity of moves 
-        Console.WriteLine($"Moves: {playerMoves}")
+        Console.WriteLine($"\nMoves: {playerMoves}")
         for x in 0 .. maxX do
             for y in 0 .. maxY do
                 match Map.tryFind (x, y) coordsToSymbol with
@@ -28,17 +27,19 @@ module GamePrint =
 
 
 module gameLoop = 
-// checks if the game is won by checking if there are any boxes left
+    // checks if the game is won by checking if there are any boxes left
     let gameIsWin (map : Block list) =
         let boxes = map |> List.filter (fun x -> match x with | Box _ -> true | _ -> false) |> List.length
-        if boxes = 0 then true else false
+        boxes = 0 // return true if there are no boxes left
 
-    let rec loop (map : Block list) (playerMoves) =
+    let rec mainLoop (map : Block list) (playerMoves) =
         let newMovement = Console.ReadKey().KeyChar
         let newMap, newPlayerMoves = user.move map newMovement playerMoves
-        GamePrint.PrintMap newMap newPlayerMoves
+        Console.Clear()
+        GamePrint.PrintMap newMap newPlayerMoves        
         if gameIsWin newMap then
             printfn "Congratulations, you have won the game!"
-        // if game isn won then go back to loop with new map and new player moves
+        // if game isn't won then go back to loop with new map and new player moves
         else
-            loop newMap newPlayerMoves
+            // GamePrint.deleteCurrentPrint newMap
+            mainLoop newMap newPlayerMoves

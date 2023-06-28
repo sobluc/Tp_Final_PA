@@ -16,7 +16,7 @@ type Level =
     | Ten of string
     
 module Lvl =
-    // getLvl translates the user's answer to a level type with the path to each level file
+    // getLvl translates the user's answer to a level type with the path to each level file.
     // The name of the level file has the minimum number of steps to complete the level between parentheses (...)
     let getLvl (userAnswer : string) : Level =
         match userAnswer with
