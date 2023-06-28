@@ -12,7 +12,7 @@ let Setup () =
 [<Test>]
 let GetLevelWinTest1 ()=
     //define maps for testing where all boxes in the right place, map is list of type block from sokobanMapGenerator
-        let map = 
+    let map = 
         [
             Wall (0,0)
             Floor (1,1)
@@ -23,6 +23,39 @@ let GetLevelWinTest1 ()=
             PlayerOnGoal (6,6)
             Outside (7,7)
         ]
-        let result = gameLoop.gameIsWin map
-        let expectation = false
-        Assert.AreEqual(expectation, result)
+    let result = gameLoop.gameIsWin map
+    let expectation = false
+    Assert.AreEqual(expectation, result)
+
+[<Test>]
+let GetLevelWinTest2 ()=
+    //define maps for testing where all boxes in the right place, map is list of type block from sokobanMapGenerator
+    let map = 
+        [
+            Wall (0,0)
+            Floor (1,1)
+            BoxOnGoal (3,3)
+            Goal (4,4)
+            Player (5,5)
+            PlayerOnGoal (6,6)
+            Outside (7,7)
+        ]
+    let result = gameLoop.gameIsWin map
+    let expectation = true
+    Assert.AreEqual(expectation, result)
+
+[<Test>]
+let GetLevelWinTest3 ()=
+    //define maps for testing where all boxes in the right place, map is list of type block from sokobanMapGenerator
+    let map = 
+        [
+            Wall (0,0)
+            Floor (1,1)
+            Goal (4,4)
+            Player (5,5)
+            PlayerOnGoal (6,6)
+            Outside (7,7)
+        ]
+    let result = gameLoop.gameIsWin map
+    let expectation = true
+    Assert.AreEqual(expectation, result)
