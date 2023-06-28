@@ -17,7 +17,7 @@ module GamePrint =
         let maxX = map |> List.maxBy (fun block -> fst (SBMap.castToTuple block)) |> SBMap.castToTuple |> fst
         let maxY = map |> List.maxBy (fun block -> snd (SBMap.castToTuple block)) |> SBMap.castToTuple |> snd
         //add quantity of moves 
-        Console.WriteLine($"\nMoves: {playerMoves}")
+        Console.WriteLine($"Moves: {playerMoves}")
         for x in 0 .. maxX do
             for y in 0 .. maxY do
                 match Map.tryFind (x, y) coordsToSymbol with
