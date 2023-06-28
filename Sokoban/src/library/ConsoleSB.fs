@@ -16,14 +16,26 @@ module GamePrint =
 
         let maxX = map |> List.maxBy (fun block -> fst (SBMap.castToTuple block)) |> SBMap.castToTuple |> fst
         let maxY = map |> List.maxBy (fun block -> snd (SBMap.castToTuple block)) |> SBMap.castToTuple |> snd
-        //add quantity of moves 
-        Console.WriteLine($"Moves: {playerMoves}")
-        for x in 0 .. maxX do
-            for y in 0 .. maxY do
+
+        // Recursive function to handle the y loop
+        let rec printY x y =
+            if y <= maxY then
                 match Map.tryFind (x, y) coordsToSymbol with
                 | Some symbol -> Console.Write(symbol)
                 | None -> Console.Write(SBMap.outsideSymbol) // Default to outside if no block present at the coordinate
-            Console.WriteLine()
+                printY x (y + 1)
+
+        // Recursive function to handle the x loop
+        let rec printX x =
+            if x <= maxX then
+                printY x 0
+                Console.WriteLine()
+                printX (x + 1)
+
+        // Start printing the map
+        Console.WriteLine($"Moves: {playerMoves}")
+        printX 0
+
 
 
 module gameLoop = 
