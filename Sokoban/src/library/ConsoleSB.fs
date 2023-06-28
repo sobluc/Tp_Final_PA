@@ -37,7 +37,7 @@ module GamePrint =
         printX 0
 
 
-
+// keeps track of the game loop, printing the map updating map and ending game
 module gameLoop = 
     // checks if the game is won by checking if there are any boxes left
     let gameIsWin (map : Block list) =
