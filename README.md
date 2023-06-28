@@ -15,4 +15,4 @@ El objetivo del juego es mover las cajas ("#") hacia los objetivos ("o"). Para m
 - "d" para moverse hacia la derecha
 
 ### Niveles 
-Los niveles se encuentran en la carpeta Sokoban\src\main\levels, en el menú inicial se puede elegir el nivel que se desea jugar. Esta versión del juego cuenta con 10 niveles y un nivel tutorial. La dificultad de los mismos sube con el número asociado a su nombre. 
+Los niveles se encuentran en la carpeta Sokoban\src\main\levels, en el menú inicial se puede elegir el nivel que se desea jugar. Esta versión del juego cuenta con 10 niveles y un nivel tutorial.
