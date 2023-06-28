@@ -45,13 +45,30 @@ module gameLoop =
         boxes = 0 // return true if there are no boxes left
 
     let rec mainLoop (map : Block list) (playerMoves) =
-        let newMovement = Console.ReadKey().KeyChar
-        let newMap, newPlayerMoves = user.move map newMovement playerMoves
-        Console.Clear()
-        GamePrint.PrintMap newMap newPlayerMoves        
-        if gameIsWin newMap then
-            printfn "Congratulations, you have won the game!"
-        // if game isn't won then go back to loop with new map and new player moves
+        let key = Console.ReadKey().KeyChar
+        let rec reaskKey () :char =
+            printfn "\bInvalid key, please try again. The valid keys are w, a, s, d to move, q to quit, and r to restart"
+            let newkey = Console.ReadKey().KeyChar
+            match newkey with
+                | 'w' | 'a' | 's' | 'd' | 'q' | 'r' -> newkey
+                | _ -> reaskKey()
+        let newMovement = match key with
+                            | 'w' | 'a' | 's' | 'd' | 'q' | 'r' -> user.castDirection key
+                            | _ -> user.castDirection (reaskKey())
+        if newMovement = user.Stop then
+            printfn "\bGame stopped"
+            //false
+        else if newMovement = user.Restart then
+            printfn "\bGame restarted"
+            //true
         else
-            // GamePrint.deleteCurrentPrint newMap
-            mainLoop newMap newPlayerMoves
+            let newMap, newPlayerMoves = user.move map newMovement playerMoves
+            Console.Clear()
+            GamePrint.PrintMap newMap newPlayerMoves        
+            if gameIsWin newMap then
+                printfn "Congratulations, you have won the game!"
+                //false
+            // if game isn't won then go back to loop with new map and new player moves
+            else
+                // GamePrint.deleteCurrentPrint newMap
+                mainLoop newMap newPlayerMoves
