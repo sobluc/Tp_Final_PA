@@ -1,0 +1,3 @@
+High Score level 9
+Maximum score of the game: 65
+--------------------------------

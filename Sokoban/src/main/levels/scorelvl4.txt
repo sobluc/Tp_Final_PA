@@ -1,0 +1,3 @@
+High Score level 4
+Maximum score of the game: 173
+--------------------------------

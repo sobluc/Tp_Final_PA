@@ -1,0 +1,3 @@
+High Score level 6
+Maximum score of the game: 64
+--------------------------------

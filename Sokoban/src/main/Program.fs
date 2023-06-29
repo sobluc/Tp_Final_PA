@@ -33,10 +33,20 @@ let rec levelLoop ()=
         // The loop will also stop if the user wins the game, and either choose to change level or stop
         let action = gameLoop.mainLoop (Lvl.readLvl level) numberMoves
         match action with
-        | Stop ->    printfn "\bGame Over"
+        | Stop Lose ->    printfn "\bGame Over"
         | Restart -> restartLoop()
         | ChangeLevel ->    Console.Clear()
                             levelLoop()
+        | Stop (Win (userMoves: int)) ->    printfn "Congratulations, you have won the game!"
+                                            Score.writeScore level userName userMoves
+                                            Score.printScore level
+                                            printfn "Do you want to play another level? (y/n)"
+                                            let answer = Console.ReadKey().KeyChar
+                                            if answer = 'y' then
+                                                Console.Clear()
+                                                levelLoop()
+                                            else
+                                                printfn "\bThank you for playing!"
         | _ ->       printfn "Error. Game Over"
     restartLoop()
 levelLoop()

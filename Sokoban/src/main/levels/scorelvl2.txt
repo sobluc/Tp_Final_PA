@@ -1,0 +1,3 @@
+High Score level 2
+Maximum score of the game: 41
+--------------------------------

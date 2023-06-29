@@ -31,7 +31,7 @@ module Lvl =
         | "9" -> Nine "levels/lvl9(65).txt"
         | "10" -> Ten "levels/lvl10(44).txt"
         | _ -> Tutorial "levels/Tutorial.txt"    
-    
+
     // readLvl reads the level file and returns a list of blocks
     let readLvl (lvl : Level) : Block list = 
         match lvl with
@@ -46,3 +46,32 @@ module Lvl =
         | Eight path -> SBMap.readFromFile path
         | Nine path -> SBMap.readFromFile path
         | Ten path -> SBMap.readFromFile path
+
+module Score =
+    let getScore (lvl : Level) =
+        match lvl with
+        | Tutorial path -> "levels/scoretutorial.txt"
+        | One path -> "levels/scorelvl1.txt"
+        | Two path -> "levels/scorelvl2.txt"
+        | Three path -> "levels/scorelvl3.txt"
+        | Four path -> "levels/scorelvl4.txt"
+        | Five path -> "levels/scorelvl5.txt"
+        | Six path -> "levels/scorelvl6.txt"
+        | Seven path -> "levels/scorelvl7.txt"
+        | Eight path -> "levels/scorelvl8.txt"
+        | Nine path -> "levels/scorelvl9.txt"
+        | Ten path -> "levels/scorelvl10.txt"
+    let writeScore (lvl : Level) (name:string) (score : int) =
+        let path = getScore lvl
+        let file = System.IO.File.AppendText(path)
+        file.WriteLine(name+":   "+score.ToString())
+        file.Close()
+    
+    let printScore (lvl : Level) =
+        let path = getScore lvl
+        let file = System.IO.File.OpenText(path)
+        let mutable line = file.ReadLine()
+        while line <> null do
+            printfn "%s" line
+            line <- file.ReadLine()
+        file.Close()

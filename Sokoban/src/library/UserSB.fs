@@ -3,12 +3,18 @@ namespace SokobanUserDynamics
 open SokobanMapGenerator
 open System // for Console.ReadLine function
 
+type condition =
+    | Win of int
+    | Lose
+    | Exit
+
+
 type intention = 
     | Up
     | Down
     | Left
     | Right
-    | Stop
+    | Stop of condition
     | Restart
     | ChangeLevel
     | Invalid
@@ -26,8 +32,8 @@ module user =
         | 'D' -> Right
         | 'r' -> Restart
         | 'R' -> Restart
-        | 'q' -> Stop
-        | 'Q' -> Stop
+        | 'q' -> Stop Lose
+        | 'Q' -> Stop Lose
         | 'c' -> ChangeLevel
         | 'C' -> ChangeLevel
         | _ -> Invalid

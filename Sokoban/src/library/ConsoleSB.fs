@@ -3,6 +3,7 @@ namespace SokobanConsoleOutput
 open System
 open SokobanUserDynamics
 open SokobanMapGenerator
+open SokobanLevelReader
 
 // prints map in console
 module GamePrint =
@@ -42,6 +43,7 @@ module gameLoop =
         let boxes = map |> List.filter (fun x -> match x with | Box _ -> true | _ -> false) |> List.length
         boxes = 0 // return true if there are no boxes left
 
+    // main loop of the game, takes in the map and the player moves
     let rec mainLoop (map : Block list) (playerMoves) =
         let key = Console.ReadKey().KeyChar
         let rec reaskKey () :intention =
@@ -56,18 +58,19 @@ module gameLoop =
                                 | Invalid -> reaskKey()
                                 | _ -> intention
         match action with
-        | Stop | Restart | ChangeLevel -> action
+        | Stop Lose | Restart | ChangeLevel -> action
         | _ ->  let newMap, newPlayerMoves = user.move map action playerMoves
                 Console.Clear()
                 GamePrint.PrintMap newMap newPlayerMoves        
                 if gameIsWin newMap then
-                    printfn "Congratulations, you have won the game!"
-                    printfn "Do you want to play another level? (y/n)"
-                    let answer = Console.ReadKey().KeyChar
-                    if answer = 'y' then
-                        ChangeLevel
-                    else
-                        Stop
+                    Stop (Win newPlayerMoves)
+                //    printfn "Congratulations, you have won the game!"
+                //    printfn "Do you want to play another level? (y/n)"
+                //    let answer = Console.ReadKey().KeyChar
+                //    if answer = 'y' then
+                //        ChangeLevel
+                //    else
+                //        Stop Win
                 // if game isn't won then go back to loop with new map and new player moves
                 else
                     // GamePrint.deleteCurrentPrint newMap
