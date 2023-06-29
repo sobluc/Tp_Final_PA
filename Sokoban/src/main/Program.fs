@@ -42,7 +42,7 @@ module Program =
                 | Stop (Win (userMoves: int)) ->    printfn "Congratulations, you have won the game!"
                                                     Score.writeScore level userName userMoves // Since the player won, we write the score to the high score file
                                                     Score.printScore level // We print the high score for the level, updated with the new score
-                                                    printfn "Do you want to play another level? (y/n)" 
+                                                    printfn "Do you want to play another level? (y/n)" // In fact, any key other than y will end the game
                                                     let answer = Console.ReadKey().KeyChar
                                                     if answer = 'y' then
                                                         Console.Clear()

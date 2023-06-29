@@ -63,7 +63,8 @@ module SBMap =
         | PlayerOnGoal _ -> playerOnGoalSymbol
         | BoxOnGoal _ -> boxOnGoalSymbol
         | Floor _ -> floorSymbol
-        | Outside _ -> floorSymbol
+        | Outside _ -> floorSymbol // To make it nicer to the view, outside is casted as floor when printed
+                                   // However, an outside block will keep its type for inner operations like move function
 
     // castToTuple returns the coordinates of a Block as a tuple
     let castToTuple (b : Block) : int*int = 
