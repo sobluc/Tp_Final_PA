@@ -51,27 +51,19 @@ module gameLoop =
             let newkey = Console.ReadKey().KeyChar
             let newintention = user.castIntention newkey
             match newintention with
-                | Invalid -> reaskKey()
+                | Invalid -> reaskKey() // If the new key is invalid, the function is called again, so the action never becomes Invalid
                 | _ -> newintention
         let intention = user.castIntention key
         let action = match intention with
                                 | Invalid -> reaskKey()
                                 | _ -> intention
         match action with
-        | Stop Lose | Restart | ChangeLevel -> action
+        | Stop Lose | Restart | ChangeLevel -> action // In one of this cases, the current game ends and the program will handle it
+        // The other cases are the movement cases, since Invalid is handled above, we can safely assume that the action is a movement
         | _ ->  let newMap, newPlayerMoves = user.move map action playerMoves
-                Console.Clear()
-                GamePrint.PrintMap newMap newPlayerMoves        
+                Console.Clear() // The console is cleared to avoid printing the map multiple times
+                GamePrint.PrintMap newMap newPlayerMoves // The map is printed 
                 if gameIsWin newMap then
-                    Stop (Win newPlayerMoves)
-                //    printfn "Congratulations, you have won the game!"
-                //    printfn "Do you want to play another level? (y/n)"
-                //    let answer = Console.ReadKey().KeyChar
-                //    if answer = 'y' then
-                //        ChangeLevel
-                //    else
-                //        Stop Win
-                // if game isn't won then go back to loop with new map and new player moves
+                    Stop (Win newPlayerMoves) // If the game is won, the game ends and the program will handle the rest
                 else
-                    // GamePrint.deleteCurrentPrint newMap
-                    mainLoop newMap newPlayerMoves
+                    mainLoop newMap newPlayerMoves // If the game is not won, the game continues

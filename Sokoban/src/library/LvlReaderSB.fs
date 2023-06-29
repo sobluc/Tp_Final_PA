@@ -48,6 +48,7 @@ module Lvl =
         | Ten path -> SBMap.readFromFile path
 
 module Score =
+    // getScore returns the path to the score file of the level
     let getScore (lvl : Level) =
         match lvl with
         | Tutorial path -> "levels/scoretutorial.txt"
@@ -61,12 +62,15 @@ module Score =
         | Eight path -> "levels/scorelvl8.txt"
         | Nine path -> "levels/scorelvl9.txt"
         | Ten path -> "levels/scorelvl10.txt"
+    
+    // writeScore writes the user's name and score to the score file in the last line
     let writeScore (lvl : Level) (name:string) (score : int) =
         let path = getScore lvl
         let file = System.IO.File.AppendText(path)
         file.WriteLine(name+":   "+score.ToString())
         file.Close()
     
+    // printScore reads the score file and prints it to the console
     let printScore (lvl : Level) =
         let path = getScore lvl
         let file = System.IO.File.OpenText(path)

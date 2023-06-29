@@ -1,12 +1,10 @@
 namespace SokobanUserDynamics
 
 open SokobanMapGenerator
-open System // for Console.ReadLine function
 
 type condition =
     | Win of int
     | Lose
-    | Exit
 
 
 type intention = 
