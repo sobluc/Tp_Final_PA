@@ -35,20 +35,35 @@ module Program =
                 // The loop will also stop if the user wins the game, and either choose to change level or stop
                 let action = gameLoop.mainLoop (Lvl.readLvl level) numberMoves
                 match action with
-                | Stop Lose ->    printfn "\bGame Over"
+                | Stop Exit ->    printfn "\bThank you for playing!"
                 | Restart -> restartLoop()
                 | ChangeLevel ->    Console.Clear()
                                     levelLoop()
                 | Stop (Win (userMoves: int)) ->    printfn "Congratulations, you have won the game!"
                                                     Score.writeScore level userName userMoves // Since the player won, we write the score to the high score file
                                                     Score.printScore level // We print the high score for the level, updated with the new score
-                                                    printfn "Do you want to play another level? (y/n)" // In fact, any key other than y will end the game
+                                                    printfn "Do you want to play another level? (y/n)" 
                                                     let answer = Console.ReadKey().KeyChar
-                                                    if answer = 'y' then
-                                                        Console.Clear()
-                                                        levelLoop()
-                                                    else
-                                                        printfn "\bThank you for playing!"
+                                                    let rec reaskKey () :intention =
+                                                        printfn "\bInvalid key, please try again.\nDo you want to play another level? (y/n)"
+                                                        let newkey = Console.ReadKey().KeyChar
+                                                        match newkey with
+                                                            | 'y' -> ChangeLevel
+                                                            | 'Y' -> ChangeLevel
+                                                            | 'n' -> Stop Exit
+                                                            | 'N' -> Stop Exit
+                                                            | _ -> reaskKey() // If the user keeps entering invalid keys, we ask again
+                                                    let instruction = match answer with
+                                                                            | 'y' -> ChangeLevel
+                                                                            | 'Y' -> ChangeLevel
+                                                                            | 'n' -> Stop Exit
+                                                                            | 'N' -> Stop Exit
+                                                                            | _ -> reaskKey() // If the user enters an invalid key, we ask again
+                                                    match instruction with
+                                                        | ChangeLevel ->    Console.Clear()
+                                                                            levelLoop()
+                                                        | Stop Exit ->      printfn "\bThank you for playing!"
+                                                        | _ ->              printfn "Error. Game Over"
                 | _ ->       printfn "Error. Game Over"
             restartLoop()
         levelLoop()

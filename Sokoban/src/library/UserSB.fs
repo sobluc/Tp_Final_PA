@@ -4,7 +4,7 @@ open SokobanMapGenerator
 
 type condition =
     | Win of int
-    | Lose
+    | Exit
 
 
 type intention = 
@@ -30,8 +30,8 @@ module user =
         | 'D' -> Right
         | 'r' -> Restart
         | 'R' -> Restart
-        | 'q' -> Stop Lose
-        | 'Q' -> Stop Lose
+        | 'q' -> Stop Exit
+        | 'Q' -> Stop Exit
         | 'c' -> ChangeLevel
         | 'C' -> ChangeLevel
         | _ -> Invalid
