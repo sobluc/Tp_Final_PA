@@ -51,7 +51,7 @@ module SBMap =
         | a when a = boxOnGoalSymbol -> BoxOnGoal coord
         | a when a = floorSymbol -> Floor coord
         | a when a = outsideSymbol -> Outside coord
-        | _ -> raise (InvalidChar ("Error al leer casillero. El simbolo '" + string c + "' no significa nada. Los posibles simbolos son " + possibleSymbolsString))
+        | _ -> raise (InvalidChar ("Error when reading block. The symbol '" + string c + "' does not mean anything. The possible symbols are " + possibleSymbolsString))
 
     // castBlock casts a Block into a char
     let castBlock (b : Block) : char = 
@@ -123,8 +123,7 @@ module SBMap =
         let maxLineLength = lines |> Seq.map (fun x -> x.Length) |> Seq.max
         let numberOfLines = lines.Length
 
-        let map = lines
-                                |> getBlockList maxLineLength numberOfLines
+        let map = lines |> getBlockList maxLineLength numberOfLines
 
         match map with
             | a when a |> notOnePlayer -> raise (NumberOfPlayers "Error when reading map. The map must have only one player.")
