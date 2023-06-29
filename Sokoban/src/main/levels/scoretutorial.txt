@@ -2,3 +2,4 @@ High Score Tutorial
 Maximum score of the game: 33
 --------------------------------
 lucas diaz:   33
+sobluc:   33
