@@ -58,7 +58,7 @@ module gameLoop =
                                 | Invalid -> reaskKey()
                                 | _ -> intention
         match action with
-        | Stop Lose | Restart | ChangeLevel -> action // In one of this cases, the current game ends and the program will handle it
+        | Stop Exit | Restart | ChangeLevel -> action // In one of this cases, the current game ends and the program will handle it
         // The other cases are the movement cases, since Invalid is handled above, we can safely assume that the action is a movement
         | _ ->  let newMap, newPlayerMoves = user.move map action playerMoves
                 Console.Clear() // The console is cleared to avoid printing the map multiple times
