@@ -4,8 +4,6 @@ open System
 open SokobanUserDynamics
 open SokobanMapGenerator
 
-
-
 // prints map in console
 module GamePrint =
     let PrintMap (map : Block list) (playerMoves)  =
@@ -57,23 +55,6 @@ module gameLoop =
         let action = match intention with
                                 | Invalid -> reaskKey()
                                 | _ -> intention
-        //if action = Stop then
-        //    printfn "\bGame stopped"
-            //false
-        //else if action = Restart then
-        //    printfn "\bGame restarted"
-            //true
-        //else
-        //    let newMap, newPlayerMoves = user.move map action playerMoves
-        //    Console.Clear()
-        //    GamePrint.PrintMap newMap newPlayerMoves        
-        //    if gameIsWin newMap then
-        //        printfn "Congratulations, you have won the game!"
-                //false
-            // if game isn't won then go back to loop with new map and new player moves
-        //    else
-                // GamePrint.deleteCurrentPrint newMap
-        //        mainLoop newMap newPlayerMoves
         match action with
         | Stop | Restart | ChangeLevel -> action
         | _ ->  let newMap, newPlayerMoves = user.move map action playerMoves
@@ -87,7 +68,6 @@ module gameLoop =
                         ChangeLevel
                     else
                         Stop
-                    //false
                 // if game isn't won then go back to loop with new map and new player moves
                 else
                     // GamePrint.deleteCurrentPrint newMap
