@@ -6,8 +6,9 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LvlReaderTests.fs" />
+    <Compile Include="LvlReaderSBTests.fs" />
     <Compile Include="MapSBTests.fs" />
+    <Compile Include="UserSBTests.fs" />
     <Compile Include="ConsoleSBTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

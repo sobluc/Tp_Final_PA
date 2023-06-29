@@ -268,7 +268,7 @@ let castBlock6 () =
 [<Test>]
 let castBlock7 () =
     let block = Outside (0,0)
-    let char = SBMap.outsideSymbol
+    let char = SBMap.floorSymbol
 
     Assert.AreEqual (char, SBMap.castBlock block)
 
