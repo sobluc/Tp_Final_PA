@@ -3,28 +3,37 @@ namespace SokobanUserDynamics
 open SokobanMapGenerator
 open System // for Console.ReadLine function
 
+type intention = 
+    | Up
+    | Down
+    | Left
+    | Right
+    | Stop
+    | Restart
+    | ChangeLevel
+    | Invalid
 
 module user =
-
-    type direction = 
-        | Up
-        | Down
-        | Left
-        | Right
-        | Stop
-        | Restart
-    // isMovable decides if a block is movable given the next block
-    // e.g. if the next block is another box, it can't be moved
-
-    let castDirection (key:char) =
+    let castIntention (key:char) =
         match key with
         | 'w' -> Up
+        | 'W' -> Up
         | 'a' -> Left
+        | 'A' -> Left
         | 's' -> Down
+        | 'S' -> Down
         | 'd' -> Right
+        | 'D' -> Right
         | 'r' -> Restart
+        | 'R' -> Restart
         | 'q' -> Stop
+        | 'Q' -> Stop
+        | 'c' -> ChangeLevel
+        | 'C' -> ChangeLevel
+        | _ -> Invalid
         
+    // isMovable decides if a block is movable given the next block
+    // e.g. if the next block is another box, it can't be moved
     let isMovable (oneBlockAway:Block) (twoBlocksAway:Block) :bool=
         match oneBlockAway with
         | Wall _ -> false
@@ -42,19 +51,19 @@ module user =
 
     // nextBlock returns the next block from coordinate coord, given the direction key and the map
     // It must be noted that the x index goes from top to bottom, and the y index goes from left to right
-    let nextBlock (map: Block list) (direction: direction) (coord:int*int) : Block =
+    let nextBlock (map: Block list) (direction: intention) (coord:int*int) : Block =
         let nextCoord = match direction with
                         | Up -> (fst coord-1, snd coord)
                         | Left -> (fst coord, snd coord-1)
                         | Down -> (fst coord+1, snd coord)
                         | Right -> (fst coord, snd coord+1)
-                        //| _ -> raise (InvalidChar ("Error en el movimiendo. El simbolo '" + string key + "' no tiene ningun significado. Los posibles simbolos son w, a, s, d."))
+                        | _ -> raise (InvalidChar ("This function does not accept other directions than Up, Left, Down, and Right"))
         map
         |> List.find (fun x -> SBMap.castToTuple x = nextCoord)
 
     // move moves the player and the corresponding blocks, so it
     // returns a new map with the player and the blocks moved
-    let move (oldmap:Block list) (direction:direction) (moves:int) :Block list*int =
+    let move (oldmap:Block list) (direction:intention) (moves:int) :Block list*int =
         let player = oldmap
                             |>List.find(fun x -> match x with
                                                     | Player _ -> true
@@ -70,7 +79,7 @@ module user =
                                     | _ when x = oneBlockAway -> match oneBlockAway with // The block one block away now has the player
                                                                     | Goal (c, d) -> PlayerOnGoal (c, d)
                                                                     | BoxOnGoal (c,d) -> PlayerOnGoal (c, d)
-                                                                    | Outside (c,d) -> raise (IsOpen ("Error al mover el jugador. El jugador se ha salido del mapa."))
+                                                                    | Outside (c,d) -> raise (IsOpen ("Movement error. The player is outside the map."))
                                                                     | _ -> Player (SBMap.castToTuple oneBlockAway)
                                     | _ when x = twoBlocksAway -> match twoBlocksAway with // The block one block away now is the block two blocks away (because it is mmoved)
                                                                     | Goal (c,d) -> match oneBlockAway with

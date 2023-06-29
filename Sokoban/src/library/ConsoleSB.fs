@@ -46,29 +46,49 @@ module gameLoop =
 
     let rec mainLoop (map : Block list) (playerMoves) =
         let key = Console.ReadKey().KeyChar
-        let rec reaskKey () :char =
-            printfn "\bInvalid key, please try again. The valid keys are w, a, s, d to move, q to quit, and r to restart"
+        let rec reaskKey () :intention =
+            printfn "\bInvalid key, please try again. The valid keys are w, a, s, d to move, q to quit, r to restart and c to change level"
             let newkey = Console.ReadKey().KeyChar
-            match newkey with
-                | 'w' | 'a' | 's' | 'd' | 'q' | 'r' -> newkey
-                | _ -> reaskKey()
-        let newMovement = match key with
-                            | 'w' | 'a' | 's' | 'd' | 'q' | 'r' -> user.castDirection key
-                            | _ -> user.castDirection (reaskKey())
-        if newMovement = user.Stop then
-            printfn "\bGame stopped"
+            let newintention = user.castIntention newkey
+            match newintention with
+                | Invalid -> reaskKey()
+                | _ -> newintention
+        let intention = user.castIntention key
+        let action = match intention with
+                                | Invalid -> reaskKey()
+                                | _ -> intention
+        //if action = Stop then
+        //    printfn "\bGame stopped"
             //false
-        else if newMovement = user.Restart then
-            printfn "\bGame restarted"
+        //else if action = Restart then
+        //    printfn "\bGame restarted"
             //true
-        else
-            let newMap, newPlayerMoves = user.move map newMovement playerMoves
-            Console.Clear()
-            GamePrint.PrintMap newMap newPlayerMoves        
-            if gameIsWin newMap then
-                printfn "Congratulations, you have won the game!"
+        //else
+        //    let newMap, newPlayerMoves = user.move map action playerMoves
+        //    Console.Clear()
+        //    GamePrint.PrintMap newMap newPlayerMoves        
+        //    if gameIsWin newMap then
+        //        printfn "Congratulations, you have won the game!"
                 //false
             // if game isn't won then go back to loop with new map and new player moves
-            else
+        //    else
                 // GamePrint.deleteCurrentPrint newMap
-                mainLoop newMap newPlayerMoves
+        //        mainLoop newMap newPlayerMoves
+        match action with
+        | Stop | Restart | ChangeLevel -> action
+        | _ ->  let newMap, newPlayerMoves = user.move map action playerMoves
+                Console.Clear()
+                GamePrint.PrintMap newMap newPlayerMoves        
+                if gameIsWin newMap then
+                    printfn "Congratulations, you have won the game!"
+                    printfn "Do you want to play another level? (y/n)"
+                    let answer = Console.ReadKey().KeyChar
+                    if answer = 'y' then
+                        ChangeLevel
+                    else
+                        Stop
+                    //false
+                // if game isn't won then go back to loop with new map and new player moves
+                else
+                    // GamePrint.deleteCurrentPrint newMap
+                    mainLoop newMap newPlayerMoves
