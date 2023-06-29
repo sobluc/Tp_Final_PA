@@ -2,3 +2,4 @@ High Score level 1
 Maximum score of the game: 34
 --------------------------------
 lucas diaz:   36
+lucas:   34
