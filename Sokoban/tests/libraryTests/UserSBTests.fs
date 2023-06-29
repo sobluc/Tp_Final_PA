@@ -222,3 +222,492 @@ let NextBlockTest4 ()=
     let result = user.nextBlock map Left (2,2)
     let expectation = Wall (2,1)
     Assert.AreEqual(expectation, result)
+
+[<Test>]
+let MovementTest1 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Left 0
+    let expectation =
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest2 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Up 0
+    let expectation =
+        [
+            Floor (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            PlayerOnGoal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+
+[<Test>]
+let MovementTest3 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Right 0
+    let expectation =
+        [
+            Floor (3,3)
+            Player (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+
+[<Test>]
+let MovementTest4 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            Floor (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Player (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+    
+
+[<Test>]
+let MovementTest5 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            Player (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            Floor (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            PlayerOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+
+[<Test>]
+let MovementTest6 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Right 0
+    let expectation =
+        [
+            Goal (3,3)
+            Player (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Goal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+
+[<Test>]
+let MovementTest7 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest8 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest9 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest10 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            Box (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest11 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Box (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Right 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Box (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest12 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Up 0
+    let expectation =
+        [
+            Goal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            BoxOnGoal (5,3)
+            PlayerOnGoal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+
+[<Test>]
+let MovementTest13 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Wall (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Wall (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(0, newmoves)
+
+
+[<Test>]
+let MovementTest14 ()=
+    // A simple map for testing some cases and how the player moves
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Floor (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let result, newmoves = user.move map Down 0
+    let expectation =
+        [
+            Goal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            PlayerOnGoal (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    Assert.AreEqual(expectation, result)
+    Assert.AreEqual(1, newmoves)
+
+[<Test>]
+let MovementTest15 ()=
+    // A test in case for some reason the direction is not Up, Down, Left or Right
+    // This should throw an exception InvalidChar
+    let map = 
+        [
+            PlayerOnGoal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            BoxOnGoal (4,3)
+            Floor (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    let expectation =
+        [
+            Goal (3,3)
+            Floor (3,4)
+            Wall (3,5)
+            PlayerOnGoal (4,3)
+            Box (5,3)
+            Goal (2,3)
+            Box (1,3)
+            Wall (3,2)
+            Outside (3,1)
+        ]
+    try
+        let result, newmoves = user.move map Invalid 0
+
+        // Fail the test if the exception is not thrown
+        Assert.Fail("Expected exception was not thrown")
+    with
+    | :? InvalidChar as ex ->
+        // Assert the exception message
+        Assert.AreEqual("InvalidChar\n  \"This function does not accept other directions than Up, Left, Down, and Right\"", ex.Message)
+    | _ ->
+        // Fail the test if an exception of a different type is thrown
+        Assert.Fail("Unexpected exception was thrown")
+    
